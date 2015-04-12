@@ -1,10 +1,10 @@
 <?php
 function printResult($inputVar) {
     if (is_numeric($inputVar) === true) {
-        echo var_dump($inputVar) . '<br>';
+        echo var_dump($inputVar);
     }
     else {
-        echo gettype ($inputVar) . '<br>';
+        echo gettype ($inputVar) . "\n";
     }
 }
 printResult('hello');

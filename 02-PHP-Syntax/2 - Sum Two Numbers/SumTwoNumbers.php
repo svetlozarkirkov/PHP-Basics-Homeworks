@@ -1,7 +1,7 @@
 <?php
 function printResult($firstNumber, $secondNumber) {
     $sum = number_format((float)round($firstNumber + $secondNumber, 2), 2, '.', '');
-    echo '$firstNumber + $secondNumber = ' . $firstNumber . ' + ' . $secondNumber . ' = ' . $sum . '<br>';
+    echo '$firstNumber + $secondNumber = ' . $firstNumber . ' + ' . $secondNumber . ' = ' . $sum . "\n";
 }
 $firstNumber = 2;
 $secondNumber = 5;

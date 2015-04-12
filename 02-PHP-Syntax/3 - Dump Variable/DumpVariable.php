@@ -7,6 +7,7 @@ function printResult($inputVar) {
         echo gettype ($inputVar) . "\n";
     }
 }
+// tests below
 printResult('hello');
 printResult(15);
 printResult(1.234);

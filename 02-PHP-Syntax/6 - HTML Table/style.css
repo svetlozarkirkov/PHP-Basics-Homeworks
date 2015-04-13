@@ -1,0 +1,19 @@
+table {
+    border: 1px solid black;
+    height: 150px;
+    width: 300px;
+    box-shadow: 1px 1px 5px gray;
+}
+
+table tr th {
+    background-color: orange;
+    text-align: left;
+    border: 1px solid black;
+    padding-left: 10px;
+}
+
+table tr td {
+    text-align: right;
+    border: 1px solid black;
+    padding-right: 10px;
+}

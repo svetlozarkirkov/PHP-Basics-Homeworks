@@ -64,6 +64,7 @@
             }
         }
     </script>
+    <span style="font-weight: bold;font-size: 28px;">Tables will appear below this form! Currently unfinished...</span>
     <form style="width:50%;" method="post" action="CVGenerator.php">
         <fieldset>
             <legend>Personal Information</legend>
@@ -113,7 +114,6 @@
         <input type="submit" name="generateCV" value="Generate CV"/>
     </form>
     <?php
-        $allValid = false;
         $validationErr = "Something is wrong! Make sure that you follow the instructions below:" . "<br>" .
                         "First Name & Last Name - use only letters, the length must be between 2 and 20 characters" .
                         "<br>" . "Company Name - use only letters and numbers,

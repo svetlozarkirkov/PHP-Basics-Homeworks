@@ -1,6 +1,11 @@
 <html>
 <head>
     <title>CV Generator</title>
+    <style>
+        table, table tr, table td, table th {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body onload="addProgLang();addSpokenLang();">
     <script>
@@ -107,5 +112,86 @@
         </fieldset>
         <input type="submit" name="generateCV" value="Generate CV"/>
     </form>
+    <?php
+        $allValid = false;
+        $validationErr = "Something is wrong! Make sure that you follow the instructions below:" . "<br>" .
+                        "First Name & Last Name - use only letters, the length must be between 2 and 20 characters" .
+                        "<br>" . "Company Name - use only letters and numbers,
+                        length must be between 2 and 20 characters" . "<br>" .
+                        "Phone number - use numbers, + , - , and spaces" . "<br>" .
+                        "Email - use valid email, for example: someone@somesite.com";
+        function normalize($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+        function personalCheck($firstName, $lastName) {
+            if (!preg_match('/^[a-zA-Z ]*$/', $firstName) || (!preg_match('/^[a-zA-Z ]*$/', $lastName)) ||
+                strlen($firstName) < 2 || strlen($firstName) > 20 || strlen($lastName) < 2 ||
+                strlen($lastName > 20)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        function companyCheck($companyName) {
+            if (!preg_match('/^[a-zA-Z0-9 ]*$/', $companyName) || strlen($companyName) < 2 ||
+                strlen($companyName) > 20) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        function phoneCheck($phoneNumber) {
+            if (!preg_match('/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i',
+                $phoneNumber)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        function emailCheck($email) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        function drawCV() {
+            $progLangsSize = sizeof($_POST['progLangs']);
+            echo '<table cellspacing="2px" cellpadding="2px"><thead><tr><th colspan="2">
+                    Personal Information</th></tr></thead>
+                    <tbody><tr><td>First Name</td><td>' . $_POST['first-name'] . '</td></tr>
+                    <tr><td>Last Name</td><td>' . $_POST['last-name'] . '</td></tr>
+                    <tr><td>Email</td><td>' . $_POST['email'] . '</td></tr>
+                    <tr><td>Phone Number</td><td>' . $_POST['telephone'] . '</td></tr>
+                    <tr><td>Gender</td><td>' . $_POST['sex'] . '</td></tr>
+                    <tr><td>Birth Date</td><td>' . $_POST['birth-date'] . '</td></tr>
+                    <tr><td>Nationality</td><td>' . $_POST['nationality'] . '</td></tr></tbody></table><br>
+                    <table cellspacing="2px" cellpadding="2px"><thead><tr><th colspan="2">
+                    Last Work Position</th></tr></thead><tbody>
+                    <tr><td>Company Name</td><td>' . $_POST['company-name'] . '</td></tr>
+                    <tr><td>From</td><td>' . $_POST['from-date'] . '</td></tr>
+                    <tr><td>To</td><td>' . $_POST['to-date'] . '</td></tr></tbody></table><br>
+                    <table cellspacing="2px" cellpadding="2px"><thead><tr><th colspan="3">
+                    Computer Skills</th></tr></thead><tbody><tr><td rowspan="' . $progLangsSize . '">
+                    Programming Languages</td></tr></tbody></table>';
+        }
+        if ($_POST) {
+            $firstName = normalize($_POST['first-name']);
+            $lastName = normalize($_POST['last-name']);
+            $companyName = normalize($_POST['company-name']);
+            $phoneNumber = normalize($_POST['telephone']);
+            $email = normalize($_POST['email']);
+
+            if (personalCheck($firstName, $lastName) && companyCheck($companyName) && emailCheck($email)) {
+                    echo "All is valid!";
+                    drawCV();
+                } else {
+                echo $validationErr;
+            }
+        }
+    ?>
 </body>
 </html>

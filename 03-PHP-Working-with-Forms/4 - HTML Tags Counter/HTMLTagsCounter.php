@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if (!isset($_SESSION['counter'])) {
+        $_SESSION['counter'] = 0;
+    }
 ?>
 <html>
 <head>
@@ -13,12 +16,17 @@
     </form>
 
     <?php
+        $validTags = ['head', 'title', 'body', 'table', 'div', 'p', 'span', 'video', 'a']; // only portion of the tags included
         if ($_POST) {
-            $inputStr = $_POST['input'];
-            $_SESSION['validTags'][] = $inputStr;
+            if (in_array($_POST['input'],$validTags)) {
+                $_SESSION['counter']++;
+                echo '<span style="font-size:24px;font-weight: bold;">
+                        Valid HTML tag! <br> Score: ' . $_SESSION['counter'] . '</span><br>';
+            } else {
+                echo '<span style="font-size:24px;font-weight: bold;">
+                        Invalid HTML tag! <br> Score: ' . $_SESSION['counter'] . '</span><br>';
+            }
         }
-        echo '<br>';
-        var_dump($_SESSION);
     ?>
 </body>
 </html>

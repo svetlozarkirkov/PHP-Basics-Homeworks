@@ -7,7 +7,7 @@
         }
         table, table * {
             border: 1px solid black;
-            padding: 5px;
+            padding: 2px;
         }
     </style>
 </head>
